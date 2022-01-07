@@ -43,7 +43,7 @@ var Admin = AdminPanel.getFieldValue({
 })
 
 // You need to comment this lines for /setup in first time
-if (command.folder == "Admin" && user.telegramid != Admin) {
+if((command)&&(command.folder == "Admin" && user.telegramid != Admin))
   // only admin can run command from Admin Panel's folder
   // any common bjs here for admin
   return

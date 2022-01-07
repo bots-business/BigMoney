@@ -42,7 +42,7 @@ var cooldownTime = AdminPanel.getFieldValue({
 Libs.CooldownLib.chat.watch({
   // you need name for cooldown
   name: "BonusCooldown",
-  time: cooldownTime, // cooldown time in AdminPanel
+  time: parseInt(cooldownTime), // cooldown time in AdminPanel
   onEnding: onEnding,
   onWaiting: onWaiting
 })
