@@ -13,21 +13,20 @@ var commission = AdminPanel.getFieldValue({
   panel_name: "AdminInfo", // panel name
   field_name: "refer_commision" // field name
 })
+
 if (!commission) {
   Bot.sendMessage("*Oops! Refer commission isn't setupped by admin!*")
   return
 }
-let reflink = Libs.ReferralLib.currentUser.getRefLink(bot.name)
-let lib = Libs.ReferralLib
-var refList = lib.currentUser.refList.get()
+
+let lib = Libs.ReferralLib;
+
 Bot.sendMessage(
-  "*⏯️ Total Invites : " +
-    refList.length +
-    " Users\n\n⛔ Per Referral " +
-    commission +
-    " " +
-   bot.currency +
-    "!\n\n🔗 Referral Link ⬇️\n" +
-    reflink +
-    "*"
+  " Users\n\n⛔ Per Referral " +
+  commission +
+  " " +
+  bot.currency +
+  "!\n\n🔗 Referral Link ⬇️\n" +
+  lib.getLink() +
+  "*"
 )

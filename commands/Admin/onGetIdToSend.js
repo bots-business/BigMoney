@@ -14,9 +14,9 @@ _Tip: You can add minus sign before the number to deduct the amount from user's 
   aliases: 
 CMD*/
 
-let amount = parseFloat(message)
-let tgid = options.tgid
-let res = Libs.ResourcesLib.anotherUserRes("balance", tgid)
+let amount = parseFloat(message);
+let tgid = options.tgid;
+let res = Libs.ResourcesLib.anotherUserRes("balance", tgid);
 
 if (!isNumeric(message)) {
   Bot.sendMessage("*📛 Invaild value. Enter only numeric value. Try again*", {
@@ -25,7 +25,9 @@ if (!isNumeric(message)) {
 
   return
 }
-res.add(amount)
+
+res.add(amount);
+
 Bot.sendMessage(
   "*The amount " +
     amount +
@@ -33,6 +35,7 @@ Bot.sendMessage(
     tgid +
     " * balance*"
 )
+
 Bot.sendMessageToChatWithId(
   tgid,
   "*🎁 You have just received +" + amount + " from admin.*"

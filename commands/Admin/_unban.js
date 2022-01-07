@@ -9,9 +9,12 @@
   aliases: 
 CMD*/
 
-if (user.telegramid == message) {
+var idForUnBan = message;
+
+if (user.telegramid == idForUnBan) {
   Bot.sendMessage("Error: 404, User is not found!")
   return
 }
-Bot.unblockChat(message)
-Bot.sendMessage("Successfully unbanned: " + message)
+
+Bot.unblockChat(idForUnBan)
+Bot.sendMessage("Successfully unbanned: " + idForUnBan)

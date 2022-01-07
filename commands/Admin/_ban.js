@@ -9,9 +9,12 @@
   aliases: 
 CMD*/
 
-if (user.telegramid == message) {
-  Bot.sendMessage("Error: 404, User is not found!")
+var idForBan = message;
+
+if (user.telegramid == idForBan) {
+  Bot.sendMessage("Error: User is not found!")
   return
 }
-Bot.blockChat(message)
-Bot.sendMessage("Successfully banned: " + message)
+
+Bot.blockChat(idForBan)
+Bot.sendMessage("Successfully banned: " + idForBan)

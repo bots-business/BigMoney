@@ -16,6 +16,7 @@ var keyboard = [
   ],
   [{ title: "Add/Remove Funds", command: "/send-funds" }]
 ]
+
 Bot.sendInlineKeyboard(
   keyboard,
   "*Welcome. Admin!\nYou can run /setup to edit other values such as: Minimum Withdrawal, Refer commission, Daily bonus amount, Currency Name.*"
