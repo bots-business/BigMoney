@@ -42,6 +42,7 @@ var Admin = AdminPanel.getFieldValue({
   field_name: "ADMIN_ID" // field name
 })
 
+// You need to comment this lines for /setup in first time
 if (command.folder == "Admin" && user.telegramid != Admin) {
   // only admin can run command from Admin Panel's folder
   // any common bjs here for admin

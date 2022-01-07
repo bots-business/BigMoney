@@ -9,11 +9,16 @@
   aliases: 
 CMD*/
 
-var isInstalled = AdminPanel.getPanel("Admin Information").fields[0]
+// Note!
+// Please change @ command before setup
+
+var isInstalled = AdminPanel.getPanel("Admin Information").fields
+
 if (isInstalled) {
   // you need to remove this if you want run setup again
   return
 }
+
 var panel = {
   // Panel title
   title: "Several Panels",
