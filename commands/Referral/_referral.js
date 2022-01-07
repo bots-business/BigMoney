@@ -27,6 +27,5 @@ Bot.sendMessage(
   " " +
   bot.currency +
   "!\n\n🔗 Referral Link ⬇️\n" +
-  lib.getLink() +
-  "*"
+  lib.getLink()
 )
