@@ -14,33 +14,22 @@ function getProp(propName){
   return User.getProperty(LIB_PREFIX + propName);
 }
 
-function getJsonRefList(userId){
-  let propName = LIB_PREFIX + 'refList' + userId;
-  let refList = Bot.getProperty(propName);
-
-  if(!refList){ refList = { users:[] } };
-  return refList.users;
-}
-
 function getList(userId){
-  let listName = LIB_PREFIX + 'refList' + userId;
+  let listName = LIB_PREFIX + 'refList' + String(userId);
   return new List({ name: listName, user_id: userId })
 }
 
 function getTopList(){
-  return new List({ name: LIB_PREFIX + 'TopList' })
+  var list = new List({ name: LIB_PREFIX + 'TopList' });
+  if(!list.exist){ list.create() }
+  return list;
 }
 
 function getRefList(userId){
   if(!userId){ userId = user.id }
 
-  let refList = getList(userId)
-
-  if(!refList.exist){
-    return getJsonRefList(userId)
-  }
-
-  return refList.getUsers()
+  let refList = getList(userId);
+  return refList;
 }
 
 function addFriendFor(userId){
@@ -51,22 +40,36 @@ function addFriendFor(userId){
   refList.addUser(user);
 }
 
-function addToTopList(userId){
-  // var topList = getTopList();
-  // TODO
+function updateRefsCountFor(userId){
+  var topList = getTopList();
+  userId = parseInt(userId);
+
+  var refsCount = User.getProperty({
+    name: LIB_PREFIX + 'refsCount',
+    user_id: userId
+  });
+
+  if(!refsCount){ refsCount = 0 }
+
+  User.setProperty({
+    name: LIB_PREFIX + 'refsCount',
+    value: refsCount + 1,
+    list: topList,
+    user_id: userId
+  });
 }
 
 function setReferral(userId){
   addFriendFor(userId);
-  // TODO
-  // addToTopList(userID)
+  updateRefsCountFor(userId);
 
-  let userKey = LIB_PREFIX + 'user' + userId;
+  let userKey = LIB_PREFIX + 'user' + String(userId);
   let refUser = Bot.getProperty(userKey);
 
   if(!refUser){ return }
 
   User.setProperty(LIB_PREFIX + 'attracted_by_user', refUser, 'json');
+  
   if(emitEvent('onAtractedByUser', refUser )){ return true }   // Deprecated
   emitEvent('onAttracted', refUser)
 }
@@ -85,6 +88,7 @@ function trackRef(){
   if(arr[0]!=''){ return }
   let userId=arr[1];
   if(!userId){ return }
+  userId = parseInt(userId)
 
   // own link was touched
   if(userId==user.id){ return emitEvent('onTouchOwnLink') }
@@ -115,6 +119,8 @@ function getRefLink(botName, prefix){
 
   if(!botName){ botName = bot.name }
 
+  // TODO: we need something like User.get({ user_id, xxx, bot_id: yyy })
+  // because this data in database already and we don't need this bot prop 
   let userKey = LIB_PREFIX + 'user' + user.id;
   Bot.setProperty(userKey, user, 'json');
 
