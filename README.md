@@ -10,11 +10,11 @@ Author repo - Untoldhacker: https://github.com/Untoldhacker-Dev/friendly-octo-fo
 Main Menu: 💰 Balance , ⚙️Set wallet , 👫 Referral , 🎁 Daily Bonus , ⛽ Stats
 
 ## Function:
- - (💰 Balance ) /balance: View Your Funds
- - (⚙️Set wallet) /setWallet: Set Your withdrawal wallet 
- - (👫 Referral) /referral: Get Your Refer link
- - (🎁 Daily Bonus) /bonus: claim your Dialy bonus (after every 24 hours)
- - (⛽ Stats) /stat: View bot's statistics, users count, total withdrawals
+ - (💰 Balance ) `/balance`: View Your Funds
+ - (⚙️Set wallet) `/setWallet`: Set Your withdrawal wallet 
+ - (👫 Referral) `/referral`: Get Your Refer link
+ - (🎁 Daily Bonus) `/bonus`: claim your Dialy bonus (after every 24 hours)
+ - (⛽ Stats) `/stat`: View bot's statistics, users count, total withdrawals
 
 <hr> 
 
