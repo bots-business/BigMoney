@@ -11,7 +11,7 @@ CMD*/
 
 function onEnding(time) {
   // can give bonus now
-  Bot.sendMessage(`You have bonus now +${bonus}`)
+  Bot.sendMessage("You have bonus now: " + bonus + " " + bot.currency)
   user.setBalance(bonus)
 
   return true // if false - cooldown is not restarted
@@ -34,15 +34,16 @@ if (bonus == null || isNaN(bonus)) {
   return
 }
 
+bonus = parseFloat(bonus);
+
 var cooldownTime = AdminPanel.getFieldValue({
   panel_name: "AdminInfo", // panel name
   field_name: "bonus_cooldown" // field name
 })
 
-Libs.CooldownLib.chat.watch({
-  // you need name for cooldown
+Libs.CooldownLib.user.watch({
   name: "BonusCooldown",
-  time: parseInt(cooldownTime), // cooldown time in AdminPanel
+  time: parseInt(cooldownTime)*60*60, // cooldown hours in AdminPanel
   onEnding: onEnding,
   onWaiting: onWaiting
 })
