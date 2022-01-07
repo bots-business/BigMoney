@@ -9,6 +9,8 @@
   aliases: 
 CMD*/
 
+let value = parseFloat(message)
+
 function sendMsgNeedMoreAmount() {
   Bot.sendMessage(
     "_❌ Minimum Withdraw " + minimum_withdraw + " " + bot.currency + "_"
@@ -25,15 +27,22 @@ function sendMessageIncorrectAmount() {
 }
 function sendWithdrawRequest() {
   Bot.sendMessage(
-    ` ✅ Withdrawal Sent Successfully\nIt takes some transaction fee\n\n💳 Transaction Details:- \n 💰Amount: ${message} ${bot.currency} \n💼 Wallet:  ${user.wallet} \n\n⏰Wait few hours We Will Check And Pay You \n\n✅ NOTE:❗**\nIf You Do Fake Refer You Will Banned\n\n🌹 Payment Channel : ${channel} `
+    ` ✅ Withdrawal Sent Successfully\nIt takes some transaction fee`+
+    `\n\n💳 Transaction Details:- \n 💰Amount: ${value} ${bot.currency} ` +
+    `\n💼 Wallet:  ${user.wallet} \n\n⏰Wait few hours We Will Check And Pay You ` +
+    `\n\n✅ NOTE:❗**\nIf You Do Fake Refer You Will Banned\n\n🌹 Payment Channel : ${channel} `
   )
-  user.setBalance(-message)
+
+  user.setBalance(-value)
   Api.sendMessage({
     chat_id: channel,
-    text: `🔋 New Withdraw Request 🏦\n\n▪️ Status: Pending\n▪️ User: ${user.link} \n▪️ User ID:  ${user.telegramid} \n▪️ Amount: ${message} ${bot.currency} \n▪️ User Referrals: ${refList.length} \n\n💳 Wallet: \n ${user.wallet} \n\n👮🏻‍♂ Bot : @${bot.name}`,
+    text: `🔋 New Withdraw Request 🏦\n\n▪️ Status: Pending` +
+      `\n▪️ User: ${user.link} \n▪️ User ID:  ${user.telegramid} ` +
+      `\n▪️ Amount: ${message} ${bot.currency} ` +
+      ` \n\n💳 Wallet: \n ${user.wallet} \n\n👮🏻‍♂ Bot : @${bot.name}`,
     parse_mode: "Markdown"
   })
-  userPayment.add(+message)
+  userPayment.add(value)
 }
 
 var minimum_withdraw = AdminPanel.getFieldValue({
@@ -45,25 +54,33 @@ var channel = AdminPanel.getFieldValue({
   panel_name: "AdminInfo", // panel name
   field_name: "withdraw_channel" // field name
 })
+
 if (!options.minimum_withdraw) {
-  return
-}
-if (!channel || !channel.startsWith("@")) {
   Bot.sendMessage(
-    "*Seems You have incorrect Information set In App's Admin panel!*"
+    "Seems You have incorrect Information set In App's Admin panel for *minimum withdraw*!"
   )
   return
 }
+
+if (!channel || !channel.startsWith("@")) {
+  Bot.sendMessage(
+    "Seems You have incorrect Information set In App's Admin panel for *channel*!"
+  )
+  return
+}
+
 var lib = Libs.ReferralLib
-var refList = lib.currentUser.refList.get()
 var userPayment = Libs.ResourcesLib.anotherChatRes("totalPayment", "global")
-if (isNaN(message)) {
+
+if (isNaN(value)) {
   sendMessageIncorrectAmount()
 }
-if (parseFloat(message) < Math.round(minimum_withdraw)) {
+
+if (parseFloat(value) < Math.round(minimum_withdraw)) {
   sendMsgNeedMoreAmount()
 }
-if (parseFloat(message) > user.balance) {
+
+if (parseFloat(value) > user.balance) {
   sendMsgLessAmount()
 }
 sendWithdrawRequest()
