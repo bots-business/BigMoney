@@ -12,16 +12,16 @@ CMD*/
 // Note!
 // Please change @ command before setup
 
-var isInstalled = AdminPanel.getPanel("Admin Information").fields
-
-if (isInstalled) {
+var panel = AdminPanel.getPanel("AdminInfo");
+if(panel) {
+  // already installed
   // you need to remove this if you want run setup again
   return
 }
 
 var panel = {
   // Panel title
-  title: "Several Panels",
+  title: "Options",
   description: "Please fill here your admin-related information",
   // order index
   index: 0,
@@ -71,10 +71,10 @@ var panel = {
     },
     {
       name: "bonus",
-      title: "bonus amount",
+      title: "Bonus amount",
       description: "Set your Daily bonus amount",
       type: "integer",
-      placeholder: "Integer only!"
+      placeholder: "Integer only"
       // value: 100,   // default value
       // hidden: true  // if you need hidden field. By default - false
     },
@@ -118,6 +118,7 @@ AdminPanel.setPanel({
   data: panel
   // force: true // default false - save fields values
 })
+
 Bot.sendMessage(
-  "*Admin Panel created in app, Please fill the required information.*"
+  "Admin Panel created in app, Please fill the *required information.*"
 )
