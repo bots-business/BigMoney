@@ -30,7 +30,7 @@ function readUserData() {
   user.balance = Libs.ResourcesLib.userRes("balance").value();
   user.wallet = User.getProperty("wallet");
 
-  user.setBalance = function(amount) {
+  user.addBalance = function(amount) {
     Libs.ResourcesLib.userRes("balance").add(amount)
   }
 }

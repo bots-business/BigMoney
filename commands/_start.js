@@ -42,7 +42,7 @@ function onAttracted(refUser){
   let refUserBonus = Libs.ResourcesLib.anotherUserRes("balance", refUser.telegramid);
   refUserBonus.add(bonus);  // add 100 bonus for friend
 
-  balance.add(bonus) //Upperline Add
+  user.addBalance(bonus) //Upperline Add
 }
 
 function doTouchOwnLink() {

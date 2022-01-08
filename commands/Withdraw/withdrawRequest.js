@@ -17,14 +17,17 @@ function sendMsgNeedMoreAmount() {
   )
   return
 }
+
 function sendMsgLessAmount() {
   Bot.sendMessage(`❌ Maximum Withdraw ${user.balance} ${bot.currency} `)
   return
 }
+
 function sendMessageIncorrectAmount() {
   Bot.sendMessage("*Incorrect Amount!\nPlease enter positive numbers only*")
   return
 }
+
 function sendWithdrawRequest() {
   Bot.sendMessage(
     ` ✅ Withdrawal Sent Successfully\nIt takes some transaction fee`+
@@ -33,7 +36,7 @@ function sendWithdrawRequest() {
     `\n\n✅ NOTE:❗**\nIf You Do Fake Refer You Will Banned\n\n🌹 Payment Channel : ${channel} `
   )
 
-  user.setBalance(-value)
+  user.addBalance(-value)
   Api.sendMessage({
     chat_id: channel,
     text: `🔋 New Withdraw Request 🏦\n\n▪️ Status: Pending` +

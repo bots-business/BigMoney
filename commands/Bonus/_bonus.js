@@ -12,7 +12,7 @@ CMD*/
 function onEnding(time) {
   // can give bonus now
   Bot.sendMessage("You have bonus now: " + bonus + " " + bot.currency)
-  user.setBalance(bonus)
+  user.addBalance(bonus)
 
   return true // if false - cooldown is not restarted
 }
