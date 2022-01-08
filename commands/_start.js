@@ -30,6 +30,8 @@ if (!bonus) {
   )
 }
 
+bonus = parseFloat(bonus);
+
 function onAttracted(refUser){
   // access to Bonus Res of refUser
   Bot.sendMessageToChatWithId(
