@@ -33,47 +33,31 @@ if (!bonus) {
 function onAttracted(refUser){
   // access to Bonus Res of refUser
   Bot.sendMessageToChatWithId(
-    refUser.chatId,
+    refUser.telegramid,
     `*🏧 New Referral You Got: ${bonus} ${bot.currency}*`
   )
   
   let refUserBonus = Libs.ResourcesLib.anotherUserRes("balance", refUser.telegramid);
   refUserBonus.add(bonus);  // add 100 bonus for friend
-}
 
-Libs.ReferralLib.track({
-   onAttracted: onAttracted
-});
+  balance.add(bonus) //Upperline Add
+}
 
 function doTouchOwnLink() {
   Bot.sendMessage("*You're Trying To Invite You're Self ❌*")
 }
 
-function doAttracted(channel) {
-  Bot.sendMessage("Referal: " + channel)
-}
-
-function doAtractedByUser(refUser) {
-  var balance = Libs.ResourcesLib.anotherUserRes("balance", refUser.telegramid)
-
-  balance.add(bonus) //Upperline Add
-  Bot.sendMessageToChatWithId(
-    refUser.chatId,
-    `*🏧 New Referral You Got: ${bonus} ${bot.currency}*`
-  )
-}
 
 function doAlreadyAttracted() {
   Bot.sendMessage("*You Already Started The Bot ❌*")
 }
 
-var trackOptions = {
+Libs.ReferralLib.track({
   onTouchOwnLink: doTouchOwnLink,
-  onAttracted: doAttracted,
+  onAttracted: onAttracted,
   onAlreadyAttracted: doAlreadyAttracted
-}
+});
 
-Libs.ReferralLib.track(trackOptions);
 
 var old_user = Bot.getProperty("old_user")
 
